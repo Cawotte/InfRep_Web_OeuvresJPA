@@ -37,7 +37,7 @@
                     </a>s
                     <ul class="dropdown-menu">
                         <li><a href="index.htm"> <span class="glyphicon glyphicon-plus"></span> Ajouter une Oeuvre</a></li>
-                        <li><a href="index.htm"> <span class="glyphicon glyphicon-eye-open"></span> Consulter le catalogue</a></li>
+                        <li><a href="listerOeuvres.htm"> <span class="glyphicon glyphicon-eye-open"></span> Consulter le catalogue</a></li>
                         <li><a href="index.htm"> <span class="glyphicon glyphicon-ok"></span> Confirmer les réservations</a></li>
                     </ul>
                 </li>
