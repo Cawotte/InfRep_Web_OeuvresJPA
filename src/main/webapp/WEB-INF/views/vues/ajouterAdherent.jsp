@@ -49,13 +49,12 @@
             Ajouter
         </button>
 
-        <button type="button" class="btn btn-default btn-primary"
-                onclick="{
-                            window.location = '../index.jsp';
-                        }">
+        <a href="listerAdherent.htm">
+            <button type="button" class="btn btn-default btn-primary"
             <span class="glyphicon glyphicon-remove"></span> Annuler
 
-        </button>
+            </button>
+        </a>
     </div>
 </div>
 </form>

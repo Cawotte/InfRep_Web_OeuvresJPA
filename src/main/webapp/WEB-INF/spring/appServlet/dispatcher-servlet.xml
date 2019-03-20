@@ -13,6 +13,9 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     <bean name="/login/*.htm" class="com.epul.oeuvres.controle.Authentification">
     </bean>
 
+    <bean name="/Adherents/*.htm" class="com.epul.oeuvres.controle.AdherentControleur">
+    </bean>
+
 
 
 

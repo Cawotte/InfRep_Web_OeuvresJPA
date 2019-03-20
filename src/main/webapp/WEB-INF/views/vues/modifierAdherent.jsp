@@ -48,14 +48,12 @@
             <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-ok"></span>
                 Modifier
             </button>
-
+            <a href="listerAdherent.htm">
             <button type="button" class="btn btn-default btn-primary"
-                    onclick="{
-                            window.location = '../index.jsp';
-                        }">
                 <span class="glyphicon glyphicon-remove"></span> Annuler
 
             </button>
+            </a>
         </div>
     </div>
 </form>
