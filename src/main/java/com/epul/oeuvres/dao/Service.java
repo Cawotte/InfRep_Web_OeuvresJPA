@@ -89,6 +89,27 @@ public class Service extends EntityService{
 		return mesAdherents;
 	}
 
+	public List<OeuvreventeEntity> consulterListeOeuvres() throws MonException {
+		List<OeuvreventeEntity> mesOeuvres = null;
+		try
+		{
+			EntityTransaction transac = startTransaction();
+			transac.begin();
+			mesOeuvres = (List<OeuvreventeEntity>)
+					entitymanager.createQuery(
+							"SELECT a FROM OeuvreventeEntity a " +
+									"ORDER BY a.titreOeuvrevente").getResultList();
+			entitymanager.close();
+		}
+		catch (RuntimeException e)
+		{
+			new MonException("Erreur de lecture", e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mesOeuvres;
+	}
+
 	/* Consultation d'une adherent par son numéro
 	*/
 	public AdherentEntity getAdherentById(int id) throws MonException {
