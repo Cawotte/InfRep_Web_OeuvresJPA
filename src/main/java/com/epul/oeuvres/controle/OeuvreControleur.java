@@ -1,16 +1,16 @@
 package com.epul.oeuvres.controle;
 
 
-import com.epul.oeuvres.dao.Service;
 import com.epul.oeuvres.dao.ServiceOeuvre;
 import com.epul.oeuvres.meserreurs.MonException;
-import com.epul.oeuvres.metier.AdherentEntity;
 import com.epul.oeuvres.metier.OeuvreventeEntity;
 import com.epul.oeuvres.metier.ProprietaireEntity;
+import com.epul.oeuvres.metier.ReservationEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -25,7 +25,7 @@ public class OeuvreControleur {
 
 
 	@RequestMapping(value = "listerOeuvres.htm")
-	public ModelAndView afficherLesStages(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView afficherListeOeuvre(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String destinationPage;
 		try {
 			// HttpSession session = request.getSession();
@@ -53,7 +53,7 @@ public class OeuvreControleur {
 			destinationPage = "vues/Erreur";
 			return new ModelAndView(destinationPage);
 		}
-		return afficherLesStages(request, response);
+		return afficherListeOeuvre(request, response);
 
 	}
 
@@ -76,7 +76,7 @@ public class OeuvreControleur {
 			return new ModelAndView(destinationPage);
 		}
 
-		return afficherLesStages(request, response);
+		return afficherListeOeuvre(request, response);
 	}
 
 	@RequestMapping(value = "modifierOeuvre.htm")
@@ -133,7 +133,49 @@ public class OeuvreControleur {
 			destinationPage = "vues/Erreur";
 			return new ModelAndView(destinationPage);
 		}
-		return afficherLesStages(request, response);
+		return afficherListeOeuvre(request, response);
+	}
+
+	@RequestMapping(value = "listerReservations.htm")
+	public ModelAndView afficherListeReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String destinationPage;
+		try {
+			// HttpSession session = request.getSession();
+			ServiceOeuvre unService = new ServiceOeuvre();
+			request.setAttribute("reservations", unService.consulterListeReservation());
+			destinationPage = "vues/listerReservations";
+		} catch (MonException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			destinationPage = "Erreur";
+
+		}
+		return new ModelAndView(destinationPage);
+	}
+
+	@RequestMapping(value = "validerReservation.htm")
+	public  ModelAndView valideReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			ServiceOeuvre unService = new ServiceOeuvre();
+			unService.validerReservation(Integer.parseInt(request.getParameter("idOeuvre")), Integer.parseInt(request.getParameter("idAdherent")));
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			new ModelAndView("Erreur");
+
+		}
+		return afficherListeReservation(request, response);
+	}
+
+	@RequestMapping(value = "annulerReservation.htm")
+	public  ModelAndView annuleReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			ServiceOeuvre unService = new ServiceOeuvre();
+			unService.annulerReservation(Integer.parseInt(request.getParameter("idOeuvre")), Integer.parseInt(request.getParameter("idAdherent")));
+		} catch (Exception e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+			new ModelAndView("Erreur");
+
+		}
+		return afficherListeReservation(request, response);
 	}
 
 }
