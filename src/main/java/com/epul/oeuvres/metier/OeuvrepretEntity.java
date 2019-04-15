@@ -10,6 +10,8 @@ import javax.persistence.*;
 public class OeuvrepretEntity {
     private int idOeuvrepret;
     private String titreOeuvrepret;
+    private Integer idProprietaire;
+    private ProprietaireEntity proprietaireByIdProprietaire;
 
     @Id
     @Column(name = "id_oeuvrepret")
@@ -50,5 +52,25 @@ public class OeuvrepretEntity {
         int result = idOeuvrepret;
         result = 31 * result + (titreOeuvrepret != null ? titreOeuvrepret.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "id_proprietaire", insertable = false, updatable = false)
+    public Integer getIdProprietaire() {
+        return idProprietaire;
+    }
+
+    public void setIdProprietaire(Integer idProprietaire) {
+        this.idProprietaire = idProprietaire;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_proprietaire", referencedColumnName = "id_proprietaire")
+    public ProprietaireEntity getProprietaireByIdProprietaire() {
+        return proprietaireByIdProprietaire;
+    }
+
+    public void setProprietaireByIdProprietaire(ProprietaireEntity proprietaireByIdProprietaire) {
+        this.proprietaireByIdProprietaire = proprietaireByIdProprietaire;
     }
 }

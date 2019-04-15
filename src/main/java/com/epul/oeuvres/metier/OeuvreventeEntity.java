@@ -1,6 +1,7 @@
 package com.epul.oeuvres.metier;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by christian on 19/02/2017.
@@ -12,6 +13,9 @@ public class OeuvreventeEntity {
     private String titreOeuvrevente;
     private String etatOeuvrevente;
     private double prixOeuvrevente;
+    private Integer idProprietaire;
+    private ProprietaireEntity proprietaireByIdProprietaire;
+    private Collection<ReservationEntity> reservationsByIdOeuvrevente;
 
     @Id
     @Column(name = "id_oeuvrevente")
@@ -80,5 +84,34 @@ public class OeuvreventeEntity {
         temp = Double.doubleToLongBits(prixOeuvrevente);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @Basic
+    @Column(name = "id_proprietaire", updatable = false, insertable = false)
+    public Integer getIdProprietaire() {
+        return idProprietaire;
+    }
+
+    public void setIdProprietaire(Integer idProprietaire) {
+        this.idProprietaire = idProprietaire;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_proprietaire", referencedColumnName = "id_proprietaire")
+    public ProprietaireEntity getProprietaireByIdProprietaire() {
+        return proprietaireByIdProprietaire;
+    }
+
+    public void setProprietaireByIdProprietaire(ProprietaireEntity proprietaireByIdProprietaire) {
+        this.proprietaireByIdProprietaire = proprietaireByIdProprietaire;
+    }
+
+    @OneToMany(mappedBy = "oeuvreventeByIdOeuvrevente")
+    public Collection<ReservationEntity> getReservationsByIdOeuvrevente() {
+        return reservationsByIdOeuvrevente;
+    }
+
+    public void setReservationsByIdOeuvrevente(Collection<ReservationEntity> reservationsByIdOeuvrevente) {
+        this.reservationsByIdOeuvrevente = reservationsByIdOeuvrevente;
     }
 }

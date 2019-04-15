@@ -1,6 +1,7 @@
 package com.epul.oeuvres.metier;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by christian on 19/02/2017.
@@ -11,9 +12,11 @@ public class ProprietaireEntity {
     private int idProprietaire;
     private String nomProprietaire;
     private String prenomProprietaire;
+    private Collection<OeuvrepretEntity> oeuvrepretsByIdProprietaire;
+    private Collection<OeuvreventeEntity> oeuvreventesByIdProprietaire;
 
     @Id
-    @Column(name = "id_proprietaire")
+    @Column(name = "id_proprietaire", insertable = false, updatable = false)
     public int getIdProprietaire() {
         return idProprietaire;
     }
@@ -64,5 +67,23 @@ public class ProprietaireEntity {
         result = 31 * result + (nomProprietaire != null ? nomProprietaire.hashCode() : 0);
         result = 31 * result + (prenomProprietaire != null ? prenomProprietaire.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "proprietaireByIdProprietaire")
+    public Collection<OeuvrepretEntity> getOeuvrepretsByIdProprietaire() {
+        return oeuvrepretsByIdProprietaire;
+    }
+
+    public void setOeuvrepretsByIdProprietaire(Collection<OeuvrepretEntity> oeuvrepretsByIdProprietaire) {
+        this.oeuvrepretsByIdProprietaire = oeuvrepretsByIdProprietaire;
+    }
+
+    @OneToMany(mappedBy = "proprietaireByIdProprietaire")
+    public Collection<OeuvreventeEntity> getOeuvreventesByIdProprietaire() {
+        return oeuvreventesByIdProprietaire;
+    }
+
+    public void setOeuvreventesByIdProprietaire(Collection<OeuvreventeEntity> oeuvreventesByIdProprietaire) {
+        this.oeuvreventesByIdProprietaire = oeuvreventesByIdProprietaire;
     }
 }

@@ -1,6 +1,7 @@
 package com.epul.oeuvres.metier;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by christian on 19/02/2017.
@@ -12,10 +13,11 @@ public class AdherentEntity {
     private String nomAdherent;
     private String prenomAdherent;
     private String villeAdherent;
+    private Collection<ReservationEntity> reservationsByIdAdherent;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id_adherent")
+    @Column(name = "id_adherent", insertable = false, updatable = false)
     public int getIdAdherent() {
         return idAdherent;
     }
@@ -78,5 +80,14 @@ public class AdherentEntity {
         result = 31 * result + (prenomAdherent != null ? prenomAdherent.hashCode() : 0);
         result = 31 * result + (villeAdherent != null ? villeAdherent.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "adherentByIdAdherent")
+    public Collection<ReservationEntity> getReservationsByIdAdherent() {
+        return reservationsByIdAdherent;
+    }
+
+    public void setReservationsByIdAdherent(Collection<ReservationEntity> reservationsByIdAdherent) {
+        this.reservationsByIdAdherent = reservationsByIdAdherent;
     }
 }

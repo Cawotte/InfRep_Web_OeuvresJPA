@@ -18,7 +18,7 @@ public class ReservationEntity {
     private AdherentEntity adherentByIdAdherent;
 
     @Id
-    @Column(name = "id_oeuvrevente")
+    @Column(name = "id_oeuvrevente", insertable = false, updatable = false)
     public int getIdOeuvrevente() {
         return idOeuvrevente;
     }
@@ -28,7 +28,7 @@ public class ReservationEntity {
     }
 
     @Id
-    @Column(name = "id_adherent")
+    @Column(name = "id_adherent", insertable = false, updatable = false)
     public int getIdAdherent() {
         return idAdherent;
     }
@@ -83,7 +83,7 @@ public class ReservationEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_oeuvrevente", referencedColumnName = "id_oeuvrevente", nullable = false)
+    @JoinColumn(name = "id_oeuvrevente", referencedColumnName = "id_oeuvrevente", nullable = false, insertable = false, updatable = false)
     public OeuvreventeEntity getOeuvreventeByIdOeuvrevente() {
         return oeuvreventeByIdOeuvrevente;
     }
@@ -93,7 +93,7 @@ public class ReservationEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_adherent", referencedColumnName = "id_adherent", nullable = false)
+    @JoinColumn(name = "id_adherent", referencedColumnName = "id_adherent", nullable = false, insertable = false, updatable = false)
     public AdherentEntity getAdherentByIdAdherent() {
         return adherentByIdAdherent;
     }
