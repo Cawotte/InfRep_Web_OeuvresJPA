@@ -21,8 +21,8 @@
 					<tr>
 						<td>${item.titreOeuvrevente}</td>
 						<td>${item.prixOeuvrevente}</td>
-						<td>TODO (Jointure?)</td>
-						<td>TODO</td>
+						<td>${item.getProprietaireByIdProprietaire().prenomProprietaire}</td>
+						<td>${item.getProprietaireByIdProprietaire().nomProprietaire}</td>
 						<td><a class="btn btn-info" href="modifierOeuvre.htm?id=${item.idOeuvrevente}" role="button"><span
 								class="glyphicon glyphicon-pencil"></span> Modifier</a>
 							<a class="btn btn-danger" href="supprimerOeuvre.htm?id=${item.idOeuvrevente}" role="button"><span
