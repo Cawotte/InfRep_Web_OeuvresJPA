@@ -55,7 +55,7 @@
 
             <button type="button" class="btn btn-default btn-primary"
                     onclick="{
-                            window.location = '../index.jsp';
+                            window.location = '../index.htm';
                         }">
                 <span class="glyphicon glyphicon-remove"></span> Annuler
 
