@@ -11,22 +11,31 @@
 		<div class="container">
 			<table class="table table-hover">
 				<tr>
-					<th class="col-md-1">Titre</th>
-					<th class="col-md-2">Prix</th>
+					<th class="col-md-2">Titre</th>
+					<th class="col-md-1">Prix</th>
+					<th class="col-md-1">Etat</th>
 					<th class="col-md-2">Prénom Propriétaire</th>
-					<th class="col-md-4">Nom Propriétaire</th>
+					<th class="col-md-2">Nom Propriétaire</th>
 				</tr>
 
 				<c:forEach items="${mesOeuvres}" var="item">
 					<tr>
 						<td>${item.titreOeuvrevente}</td>
 						<td>${item.prixOeuvrevente}</td>
+						<td>${item.etatOeuvrevente}</td>
 						<td>${item.getProprietaireByIdProprietaire().prenomProprietaire}</td>
 						<td>${item.getProprietaireByIdProprietaire().nomProprietaire}</td>
 						<td><a class="btn btn-info" href="modifierOeuvre.htm?id=${item.idOeuvrevente}" role="button"><span
 								class="glyphicon glyphicon-pencil"></span> Modifier</a>
 							<a class="btn btn-danger" href="supprimerOeuvre.htm?id=${item.idOeuvrevente}" role="button"><span
-									class="glyphicon glyphicon-remove-circle"></span> Supprimer</a></td>
+									class="glyphicon glyphicon-remove-circle"></span> Supprimer</a>
+							<a class="btn btn-warning" href="reserverOeuvre.htm?id=${item.idOeuvrevente}" role="button"
+								<c:if test="${item.etatOeuvrevente != \"L\"}"> disabled </c:if>
+							>
+								<span class="glyphicon glyphicon-bookmark"></span>
+								Réserver
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
