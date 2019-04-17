@@ -31,11 +31,11 @@ public class ServiceEmprunt extends EntityService{
         return mesEmprunts;
     }
 
-    public void deleteEmprunt(int idOeuvre) throws MonException {
+    public void deleteEmprunt(int idEmprunt) throws MonException {
         try {
             EntityTransaction transac = startTransaction();
             transac.begin();
-            OeuvrepretEntity oeuvre = entitymanager.find(OeuvrepretEntity.class, idOeuvre);
+            OeuvrepretEntity oeuvre = entitymanager.find(OeuvrepretEntity.class, idEmprunt);
             if (oeuvre != null) {
                 entitymanager.remove(oeuvre);
             }
@@ -48,6 +48,40 @@ public class ServiceEmprunt extends EntityService{
             new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateEmprunt(OeuvrepretEntity emprunt)
+    {
+        try {
+            EntityTransaction transac = startTransaction();
+            transac.begin();
+            entitymanager.merge(emprunt);
+            transac.commit();
+            entitymanager.close();
+        }
+        catch(RuntimeException e)
+        {
+            new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e){
+            new MonException("Erreur de lecture", e.getMessage());
+        }
+    }
+
+    public void insertEmprunt(OeuvrepretEntity emprunt)
+    {
+        try {
+            EntityTransaction transac = startTransaction();
+            transac.begin();
+            entitymanager.persist(emprunt);
+            transac.commit();
+            entitymanager.close();
+        }
+        catch(RuntimeException e)
+        {
+            new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e){
+            new MonException("Erreur de lecture", e.getMessage());
         }
     }
 
@@ -65,6 +99,23 @@ public class ServiceEmprunt extends EntityService{
             e.printStackTrace();
         }
         return emprunt;
+    }
+
+    public ProprietaireEntity getProprietaireById(int id) throws MonException {
+        //List<AdherentEntity> adherents = null;
+        ProprietaireEntity proprietaire = new ProprietaireEntity();
+        try {
+            EntityTransaction transac = startTransaction();
+            transac.begin();
+            proprietaire = entitymanager.find(ProprietaireEntity.class, id);
+            entitymanager.close();
+        }catch (RuntimeException e)
+        {
+            new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return proprietaire;
     }
 
 

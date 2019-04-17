@@ -37,10 +37,23 @@
                     </a>s
                     <ul class="dropdown-menu">
                         <li><a href="ajouterOeuvre.htm"> <span class="glyphicon glyphicon-plus"></span> Ajouter une Oeuvre</a></li>
-                        <li><a href="listerOeuvres.htm"> <span class="glyphicon glyphicon-eye-open"></span> Consulter le catalogue</a></li>
+                        <li><a href="listerOeuvres.htm"> <span class="glyphicon glyphicon-th-list"></span> Consulter le catalogue</a></li>
                         <li><a href="index.htm"> <span class="glyphicon glyphicon-ok"></span> Confirmer les réservations</a></li>
                     </ul>
                 </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <span class="glyphicon glyphicon-picture"></span>
+                        Gestion des Prêts
+                        <span class="caret"></span>
+                    </a>s
+                    <ul class="dropdown-menu">
+                        <li><a href="ajouterEmprunt.htm"> <span class="glyphicon glyphicon-plus"></span> Ajouter un Emprunt</a></li>
+                        <li><a href="listerEmprunts.htm"> <span class="	glyphicon glyphicon-th-list"></span> Consulter les emprunts</a></li>
+                    </ul>
+                </li>
+
                 <li><a href="javascript:fermer()"><span class="glyphicon glyphicon-log-out"></span> Quitter</a></li>
                 </c:if>
 

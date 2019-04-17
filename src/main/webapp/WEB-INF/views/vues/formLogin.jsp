@@ -11,13 +11,13 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Identifiant : </label>
             <div class="col-md-6  col-md-3">
-                <input type="text" name="login" class="form-control" placeholder="Votre identifiant" required autofocus>
+                <input type="text" name="login" class="form-control" placeholder="Votre identifiant" value="Merlot" required autofocus>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-3 control-label">Mot de passe : </label>
             <div class="col-md-6 col-md-3">
-                <input type="password" name="pwd" ng-model="pwd" class="form-control" placeholder="Votre mot de passe" required>
+                <input type="password" name="pwd" ng-model="pwd" class="form-control" placeholder="Votre mot de passe" value="secret" required>
             </div>
         </div>
 

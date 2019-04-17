@@ -63,15 +63,12 @@ public class EmpruntControleur {
     {
         String destinationPage = "";
         try {
-            //TODO : A modifier
-            ServiceOeuvre unService = new ServiceOeuvre();
-            OeuvreventeEntity oeuvre = new OeuvreventeEntity();
-            oeuvre.setIdOeuvrevente(Integer.parseInt(request.getParameter("oeuvreId")));
-            oeuvre.setProprietaireByIdProprietaire(unService.getProprietaireById(Integer.parseInt(request.getParameter("proprietaire"))));
-            oeuvre.setTitreOeuvrevente(request.getParameter("titre"));
-            oeuvre.setEtatOeuvrevente(request.getParameter("etat"));
-            oeuvre.setPrixOeuvrevente(Double.parseDouble(request.getParameter("prix")));
-            unService.updateOeuvre(oeuvre);
+            ServiceEmprunt unService = new ServiceEmprunt();
+            OeuvrepretEntity emprunt = new OeuvrepretEntity();
+            emprunt.setIdOeuvrepret(Integer.parseInt(request.getParameter("empruntId")));
+            emprunt.setProprietaireByIdProprietaire(unService.getProprietaireById(Integer.parseInt(request.getParameter("proprietaire"))));
+            emprunt.setTitreOeuvrepret(request.getParameter("titre"));
+            unService.updateEmprunt(emprunt);
         } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "vues/Erreur";
@@ -125,14 +122,11 @@ public class EmpruntControleur {
     {
         String destinationPage = "";
         try {
-            //TODO : A modifier
-            ServiceOeuvre unService = new ServiceOeuvre();
-            OeuvreventeEntity oeuvre = new OeuvreventeEntity();
-            oeuvre.setProprietaireByIdProprietaire(unService.getProprietaireById(Integer.parseInt(request.getParameter("proprietaire"))));
-            oeuvre.setTitreOeuvrevente(request.getParameter("titre"));
-            oeuvre.setEtatOeuvrevente("L");
-            oeuvre.setPrixOeuvrevente(Double.parseDouble(request.getParameter("prix")));
-            unService.insertOeuvre(oeuvre);
+            ServiceEmprunt unService = new ServiceEmprunt();
+            OeuvrepretEntity emprunt = new OeuvrepretEntity();
+            emprunt.setProprietaireByIdProprietaire(unService.getProprietaireById(Integer.parseInt(request.getParameter("proprietaire"))));
+            emprunt.setTitreOeuvrepret(request.getParameter("titre"));
+            unService.insertEmprunt(emprunt);
         } catch (Exception e) {
             request.setAttribute("MesErreurs", e.getMessage());
             destinationPage = "vues/Erreur";
