@@ -24,7 +24,7 @@ public class ServiceOeuvre extends EntityService{
         }
         catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,7 +45,7 @@ public class ServiceOeuvre extends EntityService{
         }
         catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,14 +61,14 @@ public class ServiceOeuvre extends EntityService{
             entitymanager.close();
         }catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return oeuvre;
     }
 
-    public void updateOeuvre(OeuvreventeEntity oeuvre)
+    public void updateOeuvre(OeuvreventeEntity oeuvre) throws MonException
     {
         try {
             EntityTransaction transac = startTransaction();
@@ -79,13 +79,13 @@ public class ServiceOeuvre extends EntityService{
         }
         catch(RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e){
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         }
     }
 
-    public void insertOeuvre(OeuvreventeEntity oeuvre)
+    public void insertOeuvre(OeuvreventeEntity oeuvre) throws MonException
     {
         try {
             EntityTransaction transac = startTransaction();
@@ -96,9 +96,9 @@ public class ServiceOeuvre extends EntityService{
         }
         catch(RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e){
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         }
     }
 
@@ -112,7 +112,7 @@ public class ServiceOeuvre extends EntityService{
             entitymanager.close();
         }catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,7 +132,7 @@ public class ServiceOeuvre extends EntityService{
         }
         catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,7 +152,7 @@ public class ServiceOeuvre extends EntityService{
         }
         catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,9 +187,9 @@ public class ServiceOeuvre extends EntityService{
             entitymanager.close();
         } catch(RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e){
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         }
     }
 
@@ -204,10 +204,27 @@ public class ServiceOeuvre extends EntityService{
             entitymanager.close();
         } catch(RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e){
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         }
     }
 
+    public void insertReservation(ReservationEntity reservation)  throws MonException{
+        try {
+            EntityTransaction transac = startTransaction();
+            transac.begin();
+            entitymanager.persist(reservation);
+            transac.commit();
+            entitymanager.close();
+        }
+        catch(RuntimeException e)
+        {
+            e.printStackTrace();
+            throw new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new MonException("Erreur de lecture", e.getMessage());
+        }
+    }
 }

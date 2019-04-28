@@ -1,6 +1,7 @@
 package com.epul.oeuvres.controle;
 
 
+import com.epul.oeuvres.dao.Service;
 import com.epul.oeuvres.dao.ServiceOeuvre;
 import com.epul.oeuvres.meserreurs.MonException;
 import com.epul.oeuvres.metier.OeuvreventeEntity;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Date;
 import java.util.List;
 
 ///
@@ -146,7 +149,7 @@ public class OeuvreControleur {
 			destinationPage = "vues/listerReservations";
 		} catch (MonException e) {
 			request.setAttribute("MesErreurs", e.getMessage());
-			destinationPage = "Erreur";
+			destinationPage = "vues/Erreur";
 
 		}
 		return new ModelAndView(destinationPage);
@@ -159,7 +162,7 @@ public class OeuvreControleur {
 			unService.validerReservation(Integer.parseInt(request.getParameter("idOeuvre")), Integer.parseInt(request.getParameter("idAdherent")));
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
-			new ModelAndView("Erreur");
+			new ModelAndView("vues/Erreur");
 
 		}
 		return afficherListeReservation(request, response);
@@ -172,10 +175,48 @@ public class OeuvreControleur {
 			unService.annulerReservation(Integer.parseInt(request.getParameter("idOeuvre")), Integer.parseInt(request.getParameter("idAdherent")));
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
-			new ModelAndView("Erreur");
+			new ModelAndView("vues/Erreur");
 
 		}
 		return afficherListeReservation(request, response);
 	}
+
+	@RequestMapping(value = "reserverOeuvre.htm")
+    public ModelAndView reserverOeuvre(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    String destinationPage;
+	    try {
+            ServiceOeuvre unService = new ServiceOeuvre();
+            request.setAttribute("oeuvre", unService.getOeuvreById(Integer.parseInt(request.getParameter("id"))));
+            Service service = new Service();
+            request.setAttribute("adherents", service.consulterListeAdherents());
+            destinationPage = "vues/reserverOeuvre";
+        } catch (Exception e) {
+	        request.setAttribute("MesErreurs", e.getMessage());
+            destinationPage = "vues/Erreur";
+        }
+        return new ModelAndView(destinationPage);
+    }
+
+    @RequestMapping(value = "addReservation.htm")
+    public ModelAndView addReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    try {
+	        ServiceOeuvre unService = new ServiceOeuvre();
+	        Service service = new Service();
+	        ReservationEntity reservation = new ReservationEntity();
+	        reservation.setAdherentByIdAdherent(service.getAdherentById(Integer.parseInt(request.getParameter("adherent"))));
+	        reservation.setIdAdherent(Integer.parseInt(request.getParameter("adherent")));
+	        reservation.setDateReservation(Date.valueOf(request.getParameter("date")));
+	        OeuvreventeEntity o = unService.getOeuvreById(Integer.parseInt(request.getParameter("idOeuvre")));
+	        reservation.setOeuvreventeByIdOeuvrevente(unService.getOeuvreById(Integer.parseInt(request.getParameter("idOeuvre"))));
+	        reservation.setIdOeuvrevente(Integer.parseInt(request.getParameter("idOeuvre")));
+	        reservation.setStatut("en attente");
+	        unService.insertReservation(reservation);
+        } catch (MonException e) {
+	        e.printStackTrace();
+            request.setAttribute("MesErreurs", e.getMessage());
+            new ModelAndView("vues/Erreur");
+        }
+	    return afficherListeReservation(request, response);
+    }
 
 }

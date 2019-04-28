@@ -29,8 +29,11 @@
                             <a class="btn btn-info" href="validerReservation.htm?idAdherent=${item.getAdherentByIdAdherent().idAdherent}&idOeuvre=${item.getOeuvreventeByIdOeuvrevente().idOeuvrevente}" role="button"><span
                                 class="glyphicon glyphicon-pencil"></span> Valider</a>
                         </c:if>
+                        <c:if test='${item.statut != "annulee"}'>
                         <a class="btn btn-danger" href="annulerReservation.htm?idAdherent=${item.getAdherentByIdAdherent().idAdherent}&idOeuvre=${item.getOeuvreventeByIdOeuvrevente().idOeuvrevente}" role="button"><span
-                                class="glyphicon glyphicon-remove-circle"></span> Annuler</a></td>
+                                class="glyphicon glyphicon-remove-circle"></span> Annuler</a>
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
