@@ -4,8 +4,17 @@
 <%@include file="header.jsp" %>
 <body>
 <%@include file="navigation.jsp"%>
+<script type="text/javascript">
+    function valider() {
+        if ((document.formResa.date.value !== "")) {
+            return true;
+        }
+        alert("Merci de saisir remplir la date")
+        return false;
+    }
+</script>
 <H1> Reservation d'une oeuvre </H1>
-<form method="post" action="addReservation.htm">
+<form method="post" action="addReservation.htm" name="formResa" onsubmit="return valider()">
     <div class="col-md-12 well well-md">
         <div class="row" >
             <div class="col-md-12" style ="border:none; background-color:transparent; height :20px;">
