@@ -1,32 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
-<%@include file="header.jsp" %>
+<%@include file="../header.jsp" %>
 <body>
-<%@include file="navigation.jsp"%>
-<H1> Ajout d'une oeuvre </H1>
-<form method="post" action="insererOeuvre.htm" onsubmit="return teste()">
+<%@include file="../navigation.jsp"%>
+<H1> Ajout d'un prêt </H1>
+<form method="post" action="insererEmprunt.htm" onsubmit="return teste()">
     <div class="col-md-12 well well-md">
         <div class="row" >
             <div class="col-md-12" style ="border:none; background-color:transparent; height :20px;">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3 control-label">Titre de l'oeuvre : </label>
+            <label class="col-md-3 control-label">Titre de l'oeuvre à prêter : </label>
             <div class="col-md-3">
                 <INPUT type="text" name="titre" value="" id="nom" class="form-control" min="0">
             </div>
 
-        </div>
-        <div class="row" >
-            <div class="col-md-12" style ="border:none; background-color:transparent; height :20px;">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label">Prix de l'oeuvre :</label>
-            <div class="col-md-3">
-                <INPUT type="number" name="prix" value="" id="prenom" class="form-control" min="0">
-            </div>
         </div>
         <div class="row" >
             <div class="col-md-12" style ="border:none; background-color:transparent; height :20px;">
@@ -62,7 +52,7 @@
         </div>
     </div>
 </form>
-<%@include file="footer.jsp"%>
+<%@include file="../footer.jsp"%>
 </body>
 
 </html>

@@ -17,6 +17,8 @@ public class OeuvreventeEntity {
     private ProprietaireEntity proprietaireByIdProprietaire;
     private Collection<ReservationEntity> reservationsByIdOeuvrevente;
 
+
+
     @Id
     @Column(name = "id_oeuvrevente")
     public int getIdOeuvrevente() {
