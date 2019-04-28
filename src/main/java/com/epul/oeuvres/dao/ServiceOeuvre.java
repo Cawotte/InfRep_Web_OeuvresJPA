@@ -3,6 +3,7 @@ package com.epul.oeuvres.dao;
 import com.epul.oeuvres.meserreurs.MonException;
 import com.epul.oeuvres.metier.OeuvreventeEntity;
 import com.epul.oeuvres.metier.ProprietaireEntity;
+import com.epul.oeuvres.metier.ReservationEntity;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ServiceOeuvre extends EntityService{
         }
         catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +45,7 @@ public class ServiceOeuvre extends EntityService{
         }
         catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,14 +61,14 @@ public class ServiceOeuvre extends EntityService{
             entitymanager.close();
         }catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return oeuvre;
     }
 
-    public void updateOeuvre(OeuvreventeEntity oeuvre)
+    public void updateOeuvre(OeuvreventeEntity oeuvre) throws MonException
     {
         try {
             EntityTransaction transac = startTransaction();
@@ -78,13 +79,13 @@ public class ServiceOeuvre extends EntityService{
         }
         catch(RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e){
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         }
     }
 
-    public void insertOeuvre(OeuvreventeEntity oeuvre)
+    public void insertOeuvre(OeuvreventeEntity oeuvre) throws MonException
     {
         try {
             EntityTransaction transac = startTransaction();
@@ -95,9 +96,9 @@ public class ServiceOeuvre extends EntityService{
         }
         catch(RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e){
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         }
     }
 
@@ -111,7 +112,7 @@ public class ServiceOeuvre extends EntityService{
             entitymanager.close();
         }catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,11 +132,99 @@ public class ServiceOeuvre extends EntityService{
         }
         catch (RuntimeException e)
         {
-            new MonException("Erreur de lecture", e.getMessage());
+            throw new MonException("Erreur de lecture", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return mesProprietaires;
     }
 
+    public List<ReservationEntity> consulterListeReservation() throws MonException {
+        List<ReservationEntity> mesReservations = null;
+        try
+        {
+            EntityTransaction transac = startTransaction();
+            transac.begin();
+            mesReservations = (List<ReservationEntity>)
+                    entitymanager.createQuery(
+                            "SELECT a FROM ReservationEntity a ").getResultList();
+            entitymanager.close();
+        }
+        catch (RuntimeException e)
+        {
+            throw new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return mesReservations;
+    }
+
+    public ReservationEntity getReservationById(int idOeuvre, int idAdherent) {
+        ReservationEntity reservation = null;
+        try {
+            EntityTransaction transac = startTransaction();
+            transac.begin();
+            List<ReservationEntity> reservations = (List<ReservationEntity>)entitymanager.createQuery("SELECT a FROM ReservationEntity a WHERE a.idAdherent =" + idAdherent + "AND a.idOeuvrevente = " + idOeuvre).getResultList();
+            reservation = reservations.get(0);
+            entitymanager.close();
+        }catch (RuntimeException e)
+        {
+            new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reservation;
+    }
+
+    public void validerReservation(int idOeuvre, int idAdherent) throws MonException{
+        try  {
+            ReservationEntity reservation = getReservationById(idOeuvre, idAdherent);
+            EntityTransaction transaction = startTransaction();
+            transaction.begin();
+            reservation.setStatut("confirmee");
+            entitymanager.merge(reservation);
+            transaction.commit();
+            entitymanager.close();
+        } catch(RuntimeException e)
+        {
+            throw new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e){
+            throw new MonException("Erreur de lecture", e.getMessage());
+        }
+    }
+
+    public void annulerReservation(int idOeuvre, int idAdherent) throws MonException{
+        try  {
+            ReservationEntity reservation = getReservationById(idOeuvre, idAdherent);
+            EntityTransaction transaction = startTransaction();
+            transaction.begin();
+            reservation.setStatut("annulee");
+            entitymanager.merge(reservation);
+            transaction.commit();
+            entitymanager.close();
+        } catch(RuntimeException e)
+        {
+            throw new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e){
+            throw new MonException("Erreur de lecture", e.getMessage());
+        }
+    }
+
+    public void insertReservation(ReservationEntity reservation)  throws MonException{
+        try {
+            EntityTransaction transac = startTransaction();
+            transac.begin();
+            entitymanager.persist(reservation);
+            transac.commit();
+            entitymanager.close();
+        }
+        catch(RuntimeException e)
+        {
+            e.printStackTrace();
+            throw new MonException("Erreur de lecture", e.getMessage());
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new MonException("Erreur de lecture", e.getMessage());
+        }
+    }
 }
