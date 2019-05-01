@@ -29,8 +29,8 @@
 								class="glyphicon glyphicon-pencil"></span> Modifier</a>
 							<a class="btn btn-danger" href="supprimerOeuvre.htm?id=${item.idOeuvrevente}" role="button"><span
 									class="glyphicon glyphicon-remove-circle"></span> Supprimer</a>
-							<a class="btn btn-warning" href="reserverOeuvre.htm?id=${item.idOeuvrevente}" role="button"
-								<c:if test="${item.etatOeuvrevente != \"L\"}"> disabled </c:if>
+							<a class="btn btn-warning <c:if test="${item.etatOeuvrevente != \"L\"}"> disabled </c:if>"
+							   href="reserverOeuvre.htm?id=${item.idOeuvrevente}" role="button"
 							>
 								<span class="glyphicon glyphicon-bookmark"></span>
 								Réserver

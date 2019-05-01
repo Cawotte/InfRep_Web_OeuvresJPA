@@ -173,6 +173,9 @@ public class OeuvreControleur {
 		try {
 			ServiceOeuvre unService = new ServiceOeuvre();
 			unService.annulerReservation(Integer.parseInt(request.getParameter("idOeuvre")), Integer.parseInt(request.getParameter("idAdherent")));
+			OeuvreventeEntity oeuvre = unService.getOeuvreById(Integer.parseInt(request.getParameter("idOeuvre")));
+			oeuvre.setEtatOeuvrevente("L");
+			unService.updateOeuvre(oeuvre);
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 			new ModelAndView("vues/Erreur");
@@ -211,6 +214,9 @@ public class OeuvreControleur {
 	        reservation.setIdOeuvrevente(Integer.parseInt(request.getParameter("idOeuvre")));
 	        reservation.setStatut("en attente");
 	        unService.insertReservation(reservation);
+	        OeuvreventeEntity oeuvre = unService.getOeuvreById(Integer.parseInt(request.getParameter("idOeuvre")));
+	        oeuvre.setEtatOeuvrevente("R");
+	        unService.updateOeuvre(oeuvre);
         } catch (MonException e) {
 	        e.printStackTrace();
             request.setAttribute("MesErreurs", e.getMessage());
